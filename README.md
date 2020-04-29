@@ -63,6 +63,14 @@ Allows you to prefix your keys if you want all of your snapshots to live in a sp
 
 default: none
 
+#### PLAUSIBILITY_REGEX
+Allows you to specify a regex that the resulting html code must match in order to be stored in S3.
+
+`export PLAUSIBILITY_REGEX=" id=\"prerender-hidden-div\""`
+
+default: none
+
+
 ## License
 
 The MIT License (MIT)

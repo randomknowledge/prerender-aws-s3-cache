@@ -1,5 +1,13 @@
 var s3 = new (require('aws-sdk')).S3({params:{Bucket: process.env.S3_BUCKET_NAME}});
 
+const isPlausible = content => {
+	const regex = process.env.PLAUSIBILITY_REGEX;
+	if (!regex) {
+		return true;
+	}
+	return !!content.match(regex);
+};
+
 module.exports = {
 
 	requestReceived: function(req, res, next) {
@@ -27,6 +35,10 @@ module.exports = {
 
 	pageLoaded: function(req, res, next) {
 		if(req.prerender.statusCode !== 200) {
+			return next();
+		}
+
+		if(!isPlausible(req.prerender.content)) {
 			return next();
 		}
 
