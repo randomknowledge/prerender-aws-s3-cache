@@ -8,10 +8,23 @@ const isPlausible = content => {
 	return !!content.match(regex);
 };
 
+const omitCacheRead = req => {
+	const regex = process.env.USERAGENT_NOCACHE_REGEX;
+	if (!regex) {
+		return false;
+	}
+	const ua = req.get('User-Agent') || '';
+	return !!ua.match(regex);
+};
+
 module.exports = {
 
 	requestReceived: function(req, res, next) {
 		if(req.method !== 'GET') {
+			return next();
+		}
+
+		if (omitCacheRead(req)) {
 			return next();
 		}
 

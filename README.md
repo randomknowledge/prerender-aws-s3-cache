@@ -70,6 +70,13 @@ Allows you to specify a regex that the resulting html code must match in order t
 
 default: none
 
+#### USERAGENT_NOCACHE_REGEX
+Allows you to specify a regex that if the useragent macthes it forces omitting of cache reading (not writing).
+
+`export USERAGENT_NOCACHE_REGEX="no-cache"`
+
+default: none
+
 
 ## License
 
